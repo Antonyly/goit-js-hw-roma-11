@@ -16,8 +16,6 @@ let totalHits = 0;
 let page = 1;
 let searchQuery = null;
 
-
-
 const onSearchForm =  async e => {
   e.preventDefault();
   searchQuery = e.currentTarget.searchQuery.value;
@@ -76,7 +74,6 @@ const onLoadMoreBtn = async () => {
 
   if (totalHits >= response.totalHits) {
     loadMoreBtn.classList.add('is-hidden');
-    // endCollectionText.classList.remove('is-hidden');
         Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
