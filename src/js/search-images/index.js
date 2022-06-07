@@ -65,10 +65,7 @@ const onSearchForm =  async e => {
   }
 }
 
-searchForm.addEventListener('submit', onSearchForm);
-loadMoreBtn.addEventListener('click', onLoadMoreBtn);
-
-async function onLoadMoreBtn() {
+const onLoadMoreBtn = async () => {
   page += 1;
   const response = await fetchImages(searchQuery, page);
   createCardImage(response.hits);
@@ -82,9 +79,12 @@ async function onLoadMoreBtn() {
   lightbox.refresh();
 }
 
-function createCardImage(array) {
+const createCardImage = array => {
   const cardExample = array.map(el => cardTemplate(el)).join('');
   gallery.insertAdjacentHTML('beforeend', cardExample);
 }
 
 let lightbox = new SimpleLightbox('.photo-card a');
+
+searchForm.addEventListener('submit', onSearchForm);
+loadMoreBtn.addEventListener('click', onLoadMoreBtn);
