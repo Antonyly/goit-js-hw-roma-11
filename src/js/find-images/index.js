@@ -54,12 +54,14 @@ const onSearchForm =  async e => {
       loadMoreBtn.classList.add('is-hidden');
       endCollectionText.classList.add('is-hidden');
     }
+
   } catch (error) {
     console.log(error);
   }
 
-    if (response.totalHits > 40) {
-    loadMoreBtn.classList.remove('is-hidden');
+    if (response.totalHits >= 40) {
+      loadMoreBtn.classList.remove('is-hidden');
+
   } else {
     loadMoreBtn.classList.add('is-hidden');
   }
@@ -69,14 +71,17 @@ const onLoadMoreBtn = async () => {
   page += 1;
   const response = await fetchImages(searchQuery, page);
   createCardImage(response.hits);
-  
+  lightbox.refresh();
   totalHits += response.hits.length;
 
-  if (totalHits === response.totalHits) {
+  if (totalHits >= response.totalHits) {
     loadMoreBtn.classList.add('is-hidden');
-    endCollectionText.classList.remove('is-hidden');
+    // endCollectionText.classList.remove('is-hidden');
+        Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
   }
-  lightbox.refresh();
+  
 }
 
 const createCardImage = array => {
@@ -86,5 +91,5 @@ const createCardImage = array => {
 
 let lightbox = new SimpleLightbox('.photo-card a');
 
-searchForm.addEventListener('submit', onSearchForm);
 loadMoreBtn.addEventListener('click', onLoadMoreBtn);
+searchForm.addEventListener('submit', onSearchForm);
