@@ -29,6 +29,7 @@ const onSearchForm =  async e => {
   totalHits = response.hits.length;
 
   try {
+    loadMoreBtn.classList.add('is-hidden');
     if (response.totalHits > 0) {
       Notify.success(`Hooray! We found ${response.totalHits} images.`);
       gallery.innerHTML = '';
